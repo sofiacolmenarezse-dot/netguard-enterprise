@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NetGuard Enterprise - Monitoreo de Redes</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">⚡ NetGuard Enterprise</div>
+        <nav>
+            <a href="#dashboard">Dashboard</a>
+            <a href="#nodos">Nodos</a>
+            <a href="#registro">Registro</a>
+        </nav>
+        <span class="badge-status">● Sistema Operativo</span>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Gestión de Conectividad y Alta Disponibilidad SD-WAN</h1>
+            <p>Monitoreo en tiempo real de nodos, latencia y control de rutas críticas para infraestructura de telecomunicaciones.</p>
+            <a href="#registro" class="btn-cta">Registrar Nuevo Nodo</a>
+        </section>
+
+        <section id="dashboard" class="module-section">
+            <h2>Panel de Control de Nodos Activos</h2>
+            <div class="table-responsive">
+                <table id="tabla-nodos">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre del Nodo</th>
+                            <th>Dirección IP</th>
+                            <th>Estado</th>
+                            <th>Latencia</th>
+                            <th>Banda (Mbps)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-nodos">
+                        <!-- Datos cargados dinámicamente desde app.js -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="registro" class="form-section">
+            <h2>Registro de Nuevo Dispositivo de Red</h2>
+            <form id="form-nodo">
+                <div class="form-group">
+                    <label for="nombreNodo">Nombre del Nodo:</label>
+                    <input type="text" id="nombreNodo" required placeholder="Ej. Switch Core Sur">
+                </div>
+                <div class="form-group">
+                    <label for="ipNodo">Dirección IP:</label>
+                    <input type="text" id="ipNodo" required placeholder="Ej. 192.168.4.1">
+                </div>
+                <div class="form-group">
+                    <label for="latenciaNodo">Latencia estimada (ms):</label>
+                    <input type="number" id="latenciaNodo" required placeholder="Ej. 18">
+                </div>
+                <div class="form-group">
+                    <label for="bandaNodo">Ancho de Banda (Mbps):</label>
+                    <input type="number" id="bandaNodo" required placeholder="Ej. 500">
+                </div>
+                <button type="submit" class="btn-submit">Añadir Nodo al Sistema</button>
+            </form>
+            <div id="mensaje-alerta" class="alert"></div>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

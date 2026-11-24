@@ -1,0 +1,8 @@
+{
+  "empresa": "NetGuard Enterprise",
+  "nodos": [
+    { "id": "ND-001", "nombre": "Router Principal - Central", "ip": "192.168.1.1", "estado": "Activo", "latencia": "12ms", "anchoBanda": 1000 },
+    { "id": "ND-002", "nombre": "Switch Core - Sucursal Norte", "ip": "192.168.2.1", "estado": "Activo", "latencia": "24ms", "anchoBanda": 500 },
+    { "id": "ND-003", "nombre": "Firewall Perimetral SD-WAN", "ip": "192.168.3.1", "estado": "Advertencia", "latencia": "85ms", "anchoBanda": 250 }
+  ]
+}
