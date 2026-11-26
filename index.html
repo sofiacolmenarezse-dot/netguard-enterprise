@@ -1,75 +1,208 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NetGuard Enterprise - Monitoreo de Redes</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NetGuard Enterprise — Diagnóstico Wi-Fi y Asistencia</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <header class="navbar">
-        <div class="logo">⚡ NetGuard Enterprise</div>
-        <nav>
-            <a href="#dashboard">Dashboard</a>
-            <a href="#nodos">Nodos</a>
-            <a href="#registro">Registro</a>
-        </nav>
-        <span class="badge-status">● Sistema Operativo</span>
-    </header>
+  <header class="topbar">
+    <div class="container topbar-content">
+      <div class="brand">
+        <span class="brand-icon">⚡</span>
+        <div>
+          <h1>NetGuard Enterprise</h1>
+          <p class="subtitle">Monitoreo de Eficiencia Wi-Fi, Diagnóstico y Asistencia Técnica</p>
+        </div>
+      </div>
+      <div class="status-pill">
+        <span class="dot dot-online"></span>
+        <span>Sistema Operativo</span>
+      </div>
+    </div>
+  </header>
 
-    <main class="container">
-        <section class="hero">
-            <h1>Gestión de Conectividad y Alta Disponibilidad SD-WAN</h1>
-            <p>Monitoreo en tiempo real de nodos, latencia y control de rutas críticas para infraestructura de telecomunicaciones.</p>
-            <a href="#registro" class="btn-cta">Registrar Nuevo Nodo</a>
-        </section>
+  <main class="container main-grid">
+    <!-- Columna Izquierda: Formulario y Asistente / Foto del Router -->
+    <section class="column-left">
+      <div class="card">
+        <h2>Registro y Prueba de Conexión / Nodo</h2>
+        <p class="card-desc">
+          Ingresa los datos para evaluar si la conexión Wi-Fi es eficiente, qué ocurre si falla y qué hacer para mejorarla.
+        </p>
 
-        <section id="dashboard" class="module-section">
-            <h2>Panel de Control de Nodos Activos</h2>
-            <div class="table-responsive">
-                <table id="tabla-nodos">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nombre del Nodo</th>
-                            <th>Dirección IP</th>
-                            <th>Estado</th>
-                            <th>Latencia</th>
-                            <th>Banda (Mbps)</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tbody-nodos">
-                        <!-- Datos cargados dinámicamente desde app.js -->
-                    </tbody>
-                </table>
+        <form id="nodo-form" class="form-grid" novalidate>
+          <div class="form-group">
+            <label for="nombre-nodo">Nombre del Nodo / Red</label>
+            <input
+              type="text"
+              id="nombre-nodo"
+              placeholder="Ej. Router Principal / Wi-Fi Sala"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="direccion-ip">Dirección IP</label>
+            <input
+              type="text"
+              id="direccion-ip"
+              placeholder="Ej. 192.168.1.1"
+              required
+            />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="latencia">Latencia (ms)</label>
+              <input
+                type="number"
+                id="latencia"
+                min="1"
+                max="5000"
+                placeholder="Ej. 25"
+                required
+              />
             </div>
-        </section>
 
-        <section id="registro" class="form-section">
-            <h2>Registro de Nuevo Dispositivo de Red</h2>
-            <form id="form-nodo">
-                <div class="form-group">
-                    <label for="nombreNodo">Nombre del Nodo:</label>
-                    <input type="text" id="nombreNodo" required placeholder="Ej. Switch Core Sur">
-                </div>
-                <div class="form-group">
-                    <label for="ipNodo">Dirección IP:</label>
-                    <input type="text" id="ipNodo" required placeholder="Ej. 192.168.4.1">
-                </div>
-                <div class="form-group">
-                    <label for="latenciaNodo">Latencia estimada (ms):</label>
-                    <input type="number" id="latenciaNodo" required placeholder="Ej. 18">
-                </div>
-                <div class="form-group">
-                    <label for="bandaNodo">Ancho de Banda (Mbps):</label>
-                    <input type="number" id="bandaNodo" required placeholder="Ej. 500">
-                </div>
-                <button type="submit" class="btn-submit">Añadir Nodo al Sistema</button>
-            </form>
-            <div id="mensaje-alerta" class="alert"></div>
-        </section>
-    </main>
+            <div class="form-group">
+              <label for="ancho-banda">Ancho de Banda (Mbps)</label>
+              <input
+                type="number"
+                id="ancho-banda"
+                min="1"
+                max="10000"
+                placeholder="Ej. 100"
+                required
+              />
+            </div>
+          </div>
 
-    <script src="app.js"></script>
+          <div id="form-feedback" class="feedback-msg" aria-live="polite"></div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Evaluar y Añadir Nodo</button>
+            <button type="button" id="btn-reset-datos" class="btn btn-secondary">Restaurar Ejemplo</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Módulo Asistente IA + Foto del Router -->
+      <div class="card">
+        <h2>Asistente Técnico y Análisis de Router</h2>
+        <p class="card-desc">
+          Resuelve dudas sobre Wi-Fi, recibe tips si está lento o adjunta una foto de tu router para armar un diagnóstico claro para un técnico.
+        </p>
+
+        <div class="quick-prompts">
+          <button type="button" class="chip-btn" data-pregunta="¿Por qué se vuelve lento el Wi-Fi aunque tenga señal?">
+            ¿Por qué está lento?
+          </button>
+          <button type="button" class="chip-btn" data-pregunta="¿Cómo funciona realmente el Wi-Fi?">
+            ¿Cómo funciona el Wi-Fi?
+          </button>
+          <button type="button" class="chip-btn" data-pregunta="Dame tips rápidos si el Wi-Fi va mal">
+            Tips si va mal
+          </button>
+        </div>
+
+        <div class="form-group">
+          <label for="foto-router">Foto del router o luces indicadoras (opcional)</label>
+          <input type="file" id="foto-router" accept="image/*" />
+        </div>
+
+        <div id="preview-container" class="preview-box hidden">
+          <img id="preview-img" src="" alt="Vista previa del router" />
+          <div class="preview-meta">
+            <p id="preview-nombre"></p>
+            <select id="sintoma-router">
+              <option value="luz-roja-parpadeo">Luz roja / LOS o WAN parpadeando o apagada</option>
+              <option value="senal-debil-lejos">Buena conexión cerca, pero muy lenta lejos</option>
+              <option value="cortes-frecuentes">Se desconecta o sube la latencia en horas pico</option>
+              <option value="velocidad-baja">Paga buen plan pero llega poca velocidad</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="pregunta-ia">Tu consulta o síntoma</label>
+          <textarea
+            id="pregunta-ia"
+            rows="3"
+            placeholder="Ej. El internet va lento en mi cuarto y el router tiene una luz parpadeando..."
+          ></textarea>
+        </div>
+
+        <button type="button" id="btn-consultar-ia" class="btn btn-primary full-width">
+          Generar Diagnóstico y Respuesta
+        </button>
+
+        <div id="respuesta-ia" class="ai-response">
+          <strong>Asistente NetGuard:</strong> Escribe una duda, elige una pregunta rápida o sube una foto de tu router para recibir una explicación clara y un resumen listo para consultar con un técnico.
+        </div>
+      </div>
+    </section>
+
+    <!-- Columna Derecha: Diagnóstico de Eficiencia, Tabla y Guía del Wi-Fi -->
+    <section class="column-right">
+      <div class="card">
+        <div class="card-header-flex">
+          <div>
+            <h2>Diagnóstico de Eficiencia e Impacto</h2>
+            <p class="card-desc">Qué ocurre cuando el Wi-Fi no es eficiente y recomendaciones prácticas.</p>
+          </div>
+          <span id="badge-eficiencia" class="badge badge-neutral">Sin evaluar</span>
+        </div>
+
+        <div id="diagnostico-panel" class="diagnostico-box">
+          <p>Selecciona o registra un nodo para ver si la conexión es eficiente, qué problemas genera si no lo es y qué ajustes aplicar.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Panel de Nodos Monitoreados</h2>
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nodo</th>
+                <th>IP</th>
+                <th>Latencia</th>
+                <th>Banda</th>
+                <th>Eficiencia</th>
+              </tr>
+            </thead>
+            <tbody id="tabla-nodos"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>¿Cómo Funciona el Wi-Fi en Pocas Palabras?</h2>
+        <div class="info-grid">
+          <div class="info-item">
+            <h3>1. Ondas y Frecuencias</h3>
+            <p>El router envía datos por ondas de radio (2.4 GHz tiene mayor alcance pero más interferencia; 5 GHz es más rápido pero atraviesa peor paredes).</p>
+          </div>
+          <div class="info-item">
+            <h3>2. Latencia y Ancho de Banda</h3>
+            <p>La latencia es el tiempo de ida y vuelta de los datos (clave en videollamadas y juegos). El ancho de banda es el volumen máximo que puede fluir.</p>
+          </div>
+          <div class="info-item">
+            <h3>3. Qué Pasa si Falla</h3>
+            <p>Si hay interferencia, distancia o saturación, se pierden paquetes: los videos cargan lento, las llamadas se cortan y sube el ping.</p>
+          </div>
+          <div class="info-item">
+            <h3>4. Tips Clave</h3>
+            <p>Ubica el router en zona abierta y elevada, evita obstáculos metálicos o microondas cerca, y separa dispositivos pesados en la banda adecuada.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
 </body>
 </html>
